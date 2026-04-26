@@ -156,7 +156,6 @@ import TermsOfServices from "@/pages/TermsOfServices";
 import { LandingConfigProvider, BrandType } from "@/contexts/LandingConfigContext";
 import BusinessRoute from "./BusinessRedirect";
 import DashboardCallLogs from "@/pages/Dashboard/DashboardCallLogs";
-import Home from "@/pages/Home";
 
 const VALID_BRANDS: BrandType[] = ["CHYR", "AVRIANCE", "NOHM"];
 
