@@ -5,8 +5,6 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { Clock, Flag, Mail, Search, ChevronDown, Phone } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "@/store/features/auth/auth.slice"
@@ -27,6 +25,9 @@ export default function TopBar() {
     const handleLogout = () => {
         dispatch(logout());
     }
+
+    console.log("page mounted...");
+    
 
     return (
         <div className="w-full flex items-center justify-between">
