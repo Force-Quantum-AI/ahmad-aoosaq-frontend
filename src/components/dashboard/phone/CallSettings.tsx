@@ -1,4 +1,4 @@
-import { Check, CircleCheck, Copy, PhoneCall, RefreshCw, Save, Settings2, Trash2, Loader2 } from "lucide-react";
+import { Check, CircleCheck, Copy, PhoneCall, RefreshCw, Settings2, Trash2, Loader2 } from "lucide-react";
 import { useState } from "react";
 import CallForwordingModal from "./CallForwordingModal";
 import CallForwardingSetupModal from "./CallForwardingSetupModal";
