@@ -1,11 +1,10 @@
 import React from 'react';
-import { RefreshCw, Save } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 
 const PageHeader = ({
     children,           // Left side content (Title, subtitles, links)
     actionRows = [],    // Array of React nodes, each representing a row of buttons
     onRefresh,
-    onSave,
     showDefaultActions = true,
     className = ""
 }: {
