@@ -1,9 +1,18 @@
 import { useGetUserBusinessQuery } from "@/store/features/business/business.api";
 import { Navigate, Outlet } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton"
+import { useGetUserQuery } from "@/store/features/auth/auth.api";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "@/store/features/auth/auth.slice";
 
 const BusinessRoute = () => {
+  const dispatch = useDispatch()
+
   const { data, isLoading } = useGetUserBusinessQuery({});
+  const { data : userData} = useGetUserQuery({});
+
+  dispatch(setUserInfo(userData?.data))
+  
 
   if (isLoading) return(
     <>

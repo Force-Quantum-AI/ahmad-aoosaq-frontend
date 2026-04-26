@@ -16,7 +16,7 @@ export default function TopBar() {
 
     // Dummy data (later replace with API)
     const user = {
-        name: userInfo?.first_name + " " + userInfo?.last_name,
+        name: userInfo?.first_name + " " + userInfo?.last_name || "loading...",
         avatar: userInfo?.image || "https://i.pravatar.cc/40",
         lastActive: "44 mins ago",
         newMessages: 19
@@ -25,8 +25,6 @@ export default function TopBar() {
     const handleLogout = () => {
         dispatch(logout());
     }
-
-    console.log("page mounted...");
     
 
     return (

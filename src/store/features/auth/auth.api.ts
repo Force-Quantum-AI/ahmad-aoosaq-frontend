@@ -37,7 +37,7 @@ export const userAPI = baseAPI.injectEndpoints({
       }),
       invalidatesTags: ["Auth"],
     }),
-        getUser: build.query({
+    getUser: build.query({
       query: () => "/auth/user/update/",
       providesTags: ["Auth"],
     }),
