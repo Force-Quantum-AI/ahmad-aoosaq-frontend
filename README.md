@@ -1,0 +1,1 @@
+I have added the new command in this eadme.md file
