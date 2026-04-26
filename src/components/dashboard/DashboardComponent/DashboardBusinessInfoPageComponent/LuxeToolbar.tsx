@@ -1,7 +1,6 @@
 import {
   RefreshCw,
   Phone,
-  Save,
   Eye,
   SquarePen,
 } from "lucide-react";
