@@ -1,0 +1,21 @@
+export type TUser = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  city: string;
+  area: string;
+  password: string;
+  confirm_password: string;
+  email: string;
+  fullName: string;
+  role: "normal_user" | "provider" | "admin" | string;
+  isVerified: boolean;
+  isActive: boolean;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  profilePhoto: string;
+  is_super_admin?: boolean;
+};
