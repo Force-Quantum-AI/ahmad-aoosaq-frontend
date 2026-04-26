@@ -5,7 +5,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Clock, Flag, Mail, Search, ChevronDown, Phone } from "lucide-react"
+import { Clock, ChevronDown, Phone } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "@/store/features/auth/auth.slice"
 import { Link, useNavigate } from "react-router-dom"
