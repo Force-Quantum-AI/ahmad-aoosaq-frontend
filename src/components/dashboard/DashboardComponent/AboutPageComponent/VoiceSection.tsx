@@ -185,6 +185,7 @@ import robot from "@/assets/images/robo.png";
 import AgentConfigHeader from "./AgentConfigHeader";
 import { useGetAllAgentQuery, useSelectAgentMutation } from "@/store/features/agent/agent.api";
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Agent {
   id: number;
@@ -277,13 +278,6 @@ export default function VoiceSection() {
           </div>
         </div>
 
-        {/* Loading State */}
-        {isLoading && (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-[#5D5FEF] animate-spin" />
-          </div>
-        )}
-
         {/* Empty State */}
         {!isLoading && agentData.length === 0 && (
           <div className="rounded-2xl border border-dashed border-[#323232] p-12 text-center bg-[#0d0d0d]/40">
@@ -291,8 +285,15 @@ export default function VoiceSection() {
           </div>
         )}
 
-        {/* Voice Cards */}
-        {!isLoading && agentData.length > 0 && (
+        {/* Loading State */}
+        {isLoading ? (
+          <div className="flex flex-col md:flex-row gap-3 py-20">
+            <Skeleton className="w-full md:w-1/4 h-40 rounded-2xl bg-white/15" />
+            <Skeleton className="w-full md:w-1/4 h-40 rounded-2xl bg-white/15" />
+            <Skeleton className="w-full md:w-1/4 h-40 rounded-2xl bg-white/15" />
+            <Skeleton className="w-full md:w-1/4 h-40 rounded-2xl bg-white/15" />
+          </div>
+        ):agentData.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {agentData.map((agent: Agent) => {
               const isActive = agent.is_active;
@@ -333,13 +334,13 @@ export default function VoiceSection() {
                       <h3 className="text-xl font-medium text-white mb-1">
                         {agent.voice.name}{" "}
                         <span
-                          className={`border text-xs p-1 rounded-full ${
+                          className={`border text-xs p-1 rounded-full ml-3 ${
                             isActive
                               ? "border-emerald-500/50"
                               : "border-[#323232]"
                           }`}
                         >
-                          <span className="font-medium px-2 py-[2px] rounded-full text-[#9E9E9E]">
+                          <span className="font-medium px-2 py-[2px] rounded-full text-[#9E9E9E] group-hover:text-white transition-colors duration-300">
                             {agent.voice.gender}
                           </span>
                         </span>
@@ -364,7 +365,7 @@ export default function VoiceSection() {
                         <img
                           src={robot}
                           alt=""
-                          className="h-9 w-9 transition-colors duration-300"
+                          className="h-9 w-9 transition-all duration-700 group-hover:scale-120 "
                         />
                       </div>
 

@@ -2,7 +2,6 @@ import {
   RefreshCw,
   Phone,
   Eye,
-  SquarePen,
 } from "lucide-react";
 import TestCallPopup from "../../TestCallPopup";
 import { useState } from "react";
@@ -13,17 +12,17 @@ export default function LuxeToolbar() {
     <div className=" flex items-center justify-center mt-6 ">
       <div className="w-full  rounded-2xl ">
         {/* Header */}
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-[#9E9E9E] text-lg font-normal">
+        <div className="flex items-center gap-2 my-4">
+          <span className="text-[#9E9E9E] text-lg xl:text-2xl font-normal">
             What{" "}
             <span className="font-bold text-white">
-              Luxe Home Services Assistant
+              Luxe Your Assistant
             </span>{" "}
             knows about your business
           </span>
-          <button className="text-zinc-400 hover:text-white transition-colors">
+          {/* <button className="text-zinc-400 hover:text-white transition-colors">
             <SquarePen className="w-5 h-5" />
-          </button>
+          </button> */}
         </div>
 
         {/* Toolbar */}
@@ -40,13 +39,7 @@ export default function LuxeToolbar() {
               Refresh
             </button>
 
-            {/* Talk To Agent - blue primary */}
-            <button className="flex items-center cursor-pointer gap-2 px-5 py-3 rounded-xl bg-blue-500 hover:bg-blue-400 text-white transition-all text-sm font-normal shadow-lg shadow-blue-500/20"
-            onClick={() => setIsTestCallModalOpen(true)}
-            >
-              <Phone size={15} />
-              Talk To Agent
-            </button>
+            
 
             {/* Save Changes */}
             {/* <button className="flex items-center cursor-pointer gap-2 px-4 py-3 rounded-xl bg-[#33384D] hover:bg-zinc-600 text-white transition-all text-sm font-medium">
@@ -55,9 +48,17 @@ export default function LuxeToolbar() {
             </button> */}
 
             {/* Preview Voice */}
-            <button className="flex items-center cursor-pointer gap-2 px-4 py-3 rounded-xl bg-transparent border border-zinc-800 hover:bg-zinc-600 text-white transition-all text-sm font-medium">
+            <button className="flex items-center cursor-pointer gap-2 px-4 py-3 rounded-xl bg-transparent border border-zinc-800 hover:bg-zinc-600 text-[#9E9E9E] hover:text-white transition-all text-sm font-medium" onClick={() => setIsTestCallModalOpen(true)}>
               <Eye size={15} />
               Preview Voice
+            </button>
+
+            {/* Talk To Agent - blue primary */}
+            <button className="flex items-center cursor-pointer gap-2 px-5 py-3 rounded-xl bg-blue-500 hover:bg-blue-400  text-white transition-all text-sm font-normal shadow-lg shadow-blue-500/20"
+            onClick={() => setIsTestCallModalOpen(true)}
+            >
+              <Phone size={15} />
+              Talk To Agent
             </button>
           </div>
         </div>

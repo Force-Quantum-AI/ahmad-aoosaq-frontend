@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CircleCheck, Info, Loader2 } from "lucide-react";
 import { useGetAllLanguageQuery, useSetLanguageMutation } from "@/store/features/agent/agent.api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 interface Language {
@@ -195,9 +196,12 @@ export default function LanguageSettingsSection() {
   if (isFetching) {
     return (
       <div className="mt-6 px-6">
-        <div className="rounded-3xl p-8 bg-black flex items-center justify-center min-h-[400px]">
-          <Loader2 className="w-8 h-8 text-white animate-spin" />
-        </div>
+        <div className="flex flex-col md:flex-row gap-3 py-20">
+            <Skeleton className="w-full md:w-1/4 h-40 rounded-2xl bg-white/15" />
+            <Skeleton className="w-full md:w-1/4 h-40 rounded-2xl bg-white/15" />
+            <Skeleton className="w-full md:w-1/4 h-40 rounded-2xl bg-white/15" />
+            <Skeleton className="w-full md:w-1/4 h-40 rounded-2xl bg-white/15" />
+          </div>
       </div>
     );
   }

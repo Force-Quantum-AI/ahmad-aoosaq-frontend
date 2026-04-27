@@ -109,7 +109,7 @@ const MyAgentsPanel = () => {
             <h2 className="text-base md:text-lg font-semibold text-white tracking-tight mb-1">
                 Active agent
             </h2>
-            {isLoading ? <Skeleton className="w-full h-40 rounded-xl bg-gray-700 mb-6" /> : 
+            {isLoading ? <Skeleton className="w-full h-40 rounded-xl bg-white/15 mb-6" /> : 
             activeAgent && (
                 <div className="bg-[#1C1C1E] rounded-[24px] p-4 mb-6">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
@@ -161,9 +161,9 @@ const MyAgentsPanel = () => {
             </h2>
             {isLoading ? (
                 <div className='flex flex-col gap-'>
-                    <Skeleton className="w-full h-40 rounded-xl bg-gray-700 mb-6" />
-                    <Skeleton className="w-full h-40 rounded-xl bg-gray-700 mb-6" />
-                    <Skeleton className="w-full h-40 rounded-xl bg-gray-700 mb-6" />
+                    <Skeleton className="w-full h-40 rounded-xl bg-white/15 mb-6" />
+                    <Skeleton className="w-full h-40 rounded-xl bg-white/15 mb-6" />
+                    <Skeleton className="w-full h-40 rounded-xl bg-white/15 mb-6" />
                 </div>
             ) : (
             <div className="flex flex-col gap-4">

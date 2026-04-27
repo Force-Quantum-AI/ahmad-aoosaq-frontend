@@ -575,11 +575,11 @@ const DashboardIntegration: React.FC = () => {
       >
         {/* Left Side Content */}
         <div className="space-y-2">
-          <h1 className="text-4xl font-semibold text-white tracking-tight">Good Morning, Sazzy</h1>
-          <button className="text-[#1877F2] text-xl font-medium hover:underline block">
+          {/* <h1 className="text-4xl font-semibold text-white tracking-tight">Good Morning, Sazzy</h1> */}
+          <button className="text-white text-2xl font-medium hover:underline block">
             Integrations
           </button>
-          <p className="text-gray-500 max-w-md">
+          <p className="text-gray-500 ">
             Connect your booking calendar to let your AI agent manage appointments and streamline your workflow.
           </p>
         </div>
