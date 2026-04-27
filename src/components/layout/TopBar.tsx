@@ -38,8 +38,8 @@ export default function TopBar() {
                     <DropdownMenuTrigger asChild>
                         <div className="flex items-center gap-2 cursor-pointer transition-colors hover:text-gray-300">
                             <Avatar className="h-8 w-8 lg:h-9 lg:w-9">
-                                <AvatarImage src={user.avatar} />
-                                <AvatarFallback>SA</AvatarFallback>
+                                <AvatarImage src={user.avatar} className="object-fill"/>
+                                <AvatarFallback>Me</AvatarFallback>
                             </Avatar>
 
                             <span className="font-medium hidden sm:inline-block">{user.name}</span>

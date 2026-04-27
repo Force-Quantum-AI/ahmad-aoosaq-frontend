@@ -1,6 +1,6 @@
 
 import { ChevronRight, type LucideIcon } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 import {
     Collapsible,
@@ -31,16 +31,20 @@ export function NavMain({
         }[]
     }[]
 }) {
+    const location = useLocation()
+
     return (
         <SidebarGroup>
             <SidebarMenu>
                 {items.map((item) => {
+                    const isItemActive = item.isActive || location.pathname === item.url
+
                     if (item.items && item.items.length > 0) {
                         return (
                             <Collapsible
                                 key={item.title}
                                 asChild
-                                defaultOpen={item.isActive}
+                                defaultOpen={isItemActive}
                                 className="group/collapsible"
                             >
                                 <SidebarMenuItem>
@@ -56,7 +60,7 @@ export function NavMain({
                                             {item.items?.map((subItem) => (
                                                 <SidebarMenuSubItem key={subItem.title}>
                                                     <SidebarMenuSubButton asChild>
-                                                        <Link to={subItem.url}>
+                                                        <Link to={subItem.url} className={location.pathname === subItem.url ? "bg-white/5" : ""}>
                                                             <span>{subItem.title}</span>
                                                         </Link>
                                                     </SidebarMenuSubButton>
@@ -71,7 +75,7 @@ export function NavMain({
 
                     return (
                         <SidebarMenuItem key={item.title}>
-                            <SidebarMenuButton asChild tooltip={item.title} isActive={item.isActive}>
+                            <SidebarMenuButton asChild tooltip={item.title} isActive={isItemActive} className={isItemActive ? "bg-white/15! text-white!" : ""}>
                                 <Link to={item.url} className="mb-5">
                                     {item.icon && <item.icon className="h-5 w-5 xl:h-8 xl:w-8" />}
                                     <span className="text-base xl:text-lg">{item.title}</span>
