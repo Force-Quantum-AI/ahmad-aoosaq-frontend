@@ -57,6 +57,14 @@ export const subscriptionAPI = baseAPI.injectEndpoints({
                 body: data,
             }),
             invalidatesTags: ["Subscription"],
+        }),
+        changeSubscriptionPlan: build.query({
+            query: (data) => ({
+                url: `/payment/billing-portal/`,
+                method: "GET",
+                body: data,
+            }),
+            providesTags: ["Subscription"],
         })
     }),
 });
@@ -68,5 +76,6 @@ export const {
     useAddOnsFeaturesMutation,
     useRemoveAddOnsFeaturesMutation,
     useCreateSubscriptionMutation,
-    usePauseAndResumeAndDeleteSubscriptionMutation
+    usePauseAndResumeAndDeleteSubscriptionMutation,
+    useLazyChangeSubscriptionPlanQuery
 } = subscriptionAPI;

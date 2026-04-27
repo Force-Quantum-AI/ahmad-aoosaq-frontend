@@ -1,111 +1,3 @@
-// import { DarkButton, DarkCard } from "@/pages/Dashboard/DashboardSettings";
-// import { CheckCircle2, CircleDollarSign, SquareArrowOutUpRight } from "lucide-react";
-// import { useState } from "react";
-// import BillingDialog from "./BillingDialog";
-// import { useGetAllPlansQuery } from "@/store/features/subscription/subscription.api";
-// import BuyPlanDialog from "./BuyPlanDialog";
-
-// const Billing = () => {
-//     const { data: plans } = useGetAllPlansQuery({});
-//     const [isBillingDialogOpen, setIsBillingDialogOpen] = useState(false);
-//     const [isBuyPlanDialogOpen, setIsBuyPlanDialogOpen] = useState(false);
-//     const isPlanPresent = false; // here i will call get api to check if plan is active or not
-//     return (
-//         <DarkCard>
-//             <div className="flex items-center justify-between mb-6">
-//                 <h2 className="text-white text-lg font-semibold">Billing</h2>
-//                 <span className="flex items-center gap-1.5 bg-[#2a2000] border border-yellow-600/30 text-yellow-400 text-xs font-medium px-3 py-1.5 rounded-xl">
-//                     <CheckCircle2 size={13} />
-//                     Trialing
-//                 </span>
-//             </div>
-
-//             {isPlanPresent ? (
-//                 <div className="flex flex-col gap-4">
-//                     {/* Current Plan */}
-//                     <div className="bg-[#1a1a1a] border border-white/8 rounded-xl p-4">
-//                         <p className="text-gray-500 text-xs mb-3">Current Plan</p>
-//                         <div className="flex items-start justify-between gap-4 mb-4">
-//                             <div>
-//                                 <p className="text-white text-base font-semibold">Pro — $199/mo</p>
-//                                 <p className="text-sm mt-0.5">
-//                                     <span className="text-white font-medium">200</span>
-//                                     <span className="text-gray-500"> calls Included • </span>
-//                                     <span className="text-white font-medium">$1.30</span>
-//                                     <span className="text-gray-500">/call after</span>
-//                                 </p>
-//                             </div>
-//                             <DarkButton onClick={() => setIsBillingDialogOpen(true)}>Manage</DarkButton>
-//                         </div>
-//                         {/* Trial banner */}
-//                         <div className="bg-[#2a1f00] border border-yellow-700/30 rounded-xl py-2.5 text-center text-yellow-400 text-sm font-medium">
-//                             Trial ends Feb 1
-//                         </div>
-//                     </div>
-
-//                     {/* Stats grid */}
-//                     <div className="grid grid-cols-2 gap-3">
-//                         <div className="bg-[#1a1a1a] border border-white/6 rounded-xl p-4">
-//                             <p className="text-gray-500 text-xs uppercase tracking-widest mb-2">Plan Includes</p>
-//                             <p className="text-white text-2xl font-semibold">200</p>
-//                             <p className="text-gray-500 text-xs mt-1">calls per month</p>
-//                         </div>
-//                         <div className="bg-[#1a1a1a] border border-white/6 rounded-xl p-4">
-//                             <p className="text-gray-500 text-xs uppercase tracking-widest mb-2">Trial Ends</p>
-//                             <p className="text-white text-2xl font-semibold">Feb 1</p>
-//                             <p className="text-gray-500 text-xs mt-1">billing starts</p>
-//                         </div>
-//                     </div>
-
-//                     <p className="text-gray-600 text-xs text-center">Call usage tracking begins after your free trial</p>
-
-//                     <button className="flex items-center justify-center gap-2 text-gray-400 hover:text-white text-sm transition-colors">
-//                         <SquareArrowOutUpRight size={15} /> View invoices
-//                     </button>
-//                 </div>
-//             ) : (
-//                 <div className="flex flex-col items-center justify-center py-10 px-4 text-center border border-dashed border-white/10 rounded-2xl bg-white/5">
-//                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-//                         <CircleDollarSign className="text-primary" size={44} />
-//                     </div>
-//                     <h3 className="text-white font-medium text-lg">No Active Plan</h3>
-//                     <p className="text-gray-400 text-sm mt-1 mb-6 px-1 md:px-3   ">
-//                         Choose a subscription plan to unlock full calling features and scale your business.
-//                     </p>
-//                     <DarkButton
-//                         className="w-full sm:w-auto px-8 bg-blue-500 text-white"
-//                         onClick={() => setIsBuyPlanDialogOpen(true)}
-//                     >
-//                         View Subscription Plans
-//                     </DarkButton>
-//                 </div>
-//             )}
-//             <BillingDialog
-//                 open={isBillingDialogOpen}
-//                 setOpen={setIsBillingDialogOpen}
-//                 planId={4}
-//                 subscriptionId={4}
-
-//                 activeAddOns={[]}   // wire up when GET API is ready
-//                 isTrialing={true}
-//             />
-//             {/* <BillingDialog
-//                 open={isBillingDialogOpen}
-//                 setOpen={setIsBillingDialogOpen}
-//                 planId={subscription.plan.id}
-//                 subscriptionId={subscription.id}
-//                 plan={subscription.plan}
-//                 activeAddOns={subscription.add_ons}   // wire up when GET API is ready
-//                 isTrialing={subscription.is_trial}
-//             /> */}
-//             <BuyPlanDialog open={isBuyPlanDialogOpen} setOpen={setIsBuyPlanDialogOpen} plans={plans || []} />
-//         </DarkCard>
-//     );
-// };
-
-// export default Billing;
-
-
 import { DarkButton, DarkCard } from "@/pages/Dashboard/DashboardSettings";
 import {
     CheckCircle2,
@@ -249,6 +141,10 @@ const Billing = () => {
     const [isBuyPlanDialogOpen, setIsBuyPlanDialogOpen] = useState(false);
 
     const subData: SubscriptionData | undefined = subscriptionResponse?.data;
+
+    // const [isPlanPresent, setIsPlanPresent] = useState(false);
+    // !!subData?.subscription?.active || subData?.subscription.status==="paused" && setIsPlanPresent(true)
+
     const isPlanPresent = !!subData?.subscription?.active;
 
     // ── Derive active add-on feature objects 

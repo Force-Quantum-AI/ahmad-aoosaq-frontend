@@ -19,6 +19,7 @@ import {
     useAddOnsFeaturesMutation,
     useRemoveAddOnsFeaturesMutation,
     usePauseAndResumeAndDeleteSubscriptionMutation,
+    useLazyChangeSubscriptionPlanQuery,
 } from "@/store/features/subscription/subscription.api";
 import { toast } from "react-toastify";
 import DeleteSubscriptionModal from "./DeleteSubscriptionModal";
@@ -137,6 +138,7 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
     const [addSuccess, setAddSuccess] = useState(false);
 
     const [pauseAndResumeAndDeleteSubscription,{isLoading: isPauseAndResumeAndDeleteSubscriptionLoading}] = usePauseAndResumeAndDeleteSubscriptionMutation();
+    const [triggerChangeSubscriptionPlan] = useLazyChangeSubscriptionPlanQuery();
 
     // Reset state when dialog closes
     useEffect(() => {
@@ -532,6 +534,9 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
                                 {isPauseAndResumeAndDeleteSubscriptionLoading ? "Resuming..." : "Resume Subscription"}
                             </button>
                         )}
+                        <button className="w-full bg-black text-white hover:bg-gray-900 text-sm font-medium py-2 rounded-xl transition-colors cursor-pointer" onClick={()=>{triggerChangeSubscriptionPlan({return_url: window.location.href})}}>    
+                            Change Subscription Plan
+                        </button>
                         <button className="w-full bg-red-700 text-white hover:bg-red-600 text-sm font-medium py-2 rounded-xl transition-colors cursor-pointer" onClick={() => setIsDeleteModalOpen(true)}>
                             Cancel Subscription
                         </button>
