@@ -105,7 +105,7 @@ const Navbar: React.FC = () => {
                                             lineHeight: "normal",
                                             opacity: 0.85,
                                         }}
-                                        className="hover:opacity-100 hover:text-blue-100! transition-all duration-500!"
+                                        className="hover:opacity-100 hover:text-red-400! transition-all duration-500!"
                                     >
                                         Logout
                                     </button>

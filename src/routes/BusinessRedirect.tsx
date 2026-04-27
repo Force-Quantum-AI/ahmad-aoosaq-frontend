@@ -16,8 +16,16 @@ const BusinessRoute = () => {
 
   if (isLoading) return(
     <>
-    <div className="flex items-center justify-center h-screen bg-black p-10">
-      <Skeleton className="w-full h-full bg-white/10 rounded-2xl" />
+    <div className="flex items-center justify-center h-screen bg-black p-4 md:p-10">
+      <Skeleton className="w-full h-full rounded-2xl flex flex-col md:flex-row gap-5">
+          <Skeleton className="w-full md:w-44 xl:w-64 h-full bg-white/15 rounded-2xl" />
+          <div className="w-full md:w-full h-full rounded-2xl flex flex-col gap-3">
+            <Skeleton className="w-full h-1/4 bg-white/15 rounded-2xl" />
+            <Skeleton className="w-full h-1/4 bg-white/15 rounded-2xl" />
+            <Skeleton className="w-full h-1/4 bg-white/15 rounded-2xl" />
+            <Skeleton className="w-full h-1/4 bg-white/15 rounded-2xl" />
+          </div>
+      </Skeleton>
     </div>
     </>
   );
