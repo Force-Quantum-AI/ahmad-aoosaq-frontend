@@ -50,6 +50,14 @@ export const subscriptionAPI = baseAPI.injectEndpoints({
             }),
             invalidatesTags: ["Subscription"],
         }),
+        pauseAndResumeAndDeleteSubscription: build.mutation({
+            query: (data) => ({
+                url: `/subscription/control/`,
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ["Subscription"],
+        })
     }),
 });
 
@@ -59,5 +67,6 @@ export const {
     useGetFinalPlanModalInfoQuery,
     useAddOnsFeaturesMutation,
     useRemoveAddOnsFeaturesMutation,
-    useCreateSubscriptionMutation
+    useCreateSubscriptionMutation,
+    usePauseAndResumeAndDeleteSubscriptionMutation
 } = subscriptionAPI;

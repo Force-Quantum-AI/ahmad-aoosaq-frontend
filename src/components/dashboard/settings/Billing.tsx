@@ -501,6 +501,7 @@ const Billing = () => {
                     setOpen={setIsBillingDialogOpen}
                     planId={plan.id}
                     subscriptionId={sub.id}
+                    subscriptionStatus={sub.status}
                     plan={{
                         id: plan.id,
                         name: plan.name,

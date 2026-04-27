@@ -14,7 +14,6 @@ export default function TopBar() {
     const navigate = useNavigate();
     const userInfo = useSelector((state: any) => state.auth.userNameImg);
 
-    // Dummy data (later replace with API)
     const user = {
         name: userInfo?.first_name + " " + userInfo?.last_name || "loading...",
         avatar: userInfo?.image || "https://i.pravatar.cc/40",
@@ -24,8 +23,7 @@ export default function TopBar() {
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(logout());
-    }
-    
+    }  
 
     return (
         <div className="w-full flex items-center justify-between">
