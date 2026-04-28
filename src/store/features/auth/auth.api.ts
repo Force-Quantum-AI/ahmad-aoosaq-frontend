@@ -60,6 +60,18 @@ export const userAPI = baseAPI.injectEndpoints({
       },
       invalidatesTags: ["Auth"],
     }),
+    getOTPForDeleteUserAccount: build.query({
+      query: () => "/auth/user/delete/",
+      providesTags: ["Auth"],
+    }),
+    verifyDeleteUserAccount: build.mutation({
+      query: (otp) => ({
+        url: "/auth/user/delete/",
+        method: "POST",
+        body: otp,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
   }),
 });
 
@@ -70,4 +82,7 @@ export const {
   useChangePasswordMutation,
   useGetUserQuery,
   useUpdateUserMutation,
+  useGetOTPForDeleteUserAccountQuery,
+  useLazyGetOTPForDeleteUserAccountQuery,
+  useVerifyDeleteUserAccountMutation,
 } = userAPI;

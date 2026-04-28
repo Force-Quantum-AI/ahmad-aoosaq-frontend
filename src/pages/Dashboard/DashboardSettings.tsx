@@ -20,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "@/store/features/auth/auth.slice";
 import Billing from "@/components/dashboard/settings/Billing";
 import Account from "@/components/dashboard/settings/Account";
+import DeleteAccountModal from "@/components/dashboard/settings/DeleteAccountModal";
 
 // ── Shared primitives  
 
@@ -166,6 +167,7 @@ const DashboardSettings: React.FC = () => {
     // Modals
     const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
     const [isTeamDialogOpen, setIsTeamDialogOpen] = useState(false);
+    const [isDeleteAccountOpen, setIsDeleteAccountOpen] = useState(false);
     const [isGenerateKeyModalOpen, setIsGenerateKeyModalOpen] = useState(false);
     const [dangerAction, setDangerAction] = useState<string | null>(null);
 
@@ -385,7 +387,7 @@ const DashboardSettings: React.FC = () => {
                                 Cancel Subscription
                             </button>
                             <button
-                                onClick={() => setDangerAction("Delete Account")}
+                                onClick={() => setIsDeleteAccountOpen(true)}
                                 className="border border-red-600/40 hover:bg-red-600/10 text-red-500 text-sm font-medium py-3 rounded-xl transition-colors"
                             >
                                 Delete Account
@@ -412,6 +414,7 @@ const DashboardSettings: React.FC = () => {
                 />
             )}
             {isPopupOpen && <TestCallPopup onClose={() => setIsPopupOpen(false)} />}
+            <DeleteAccountModal open={isDeleteAccountOpen} onOpenChange={setIsDeleteAccountOpen} />
         </div>
     );
 };

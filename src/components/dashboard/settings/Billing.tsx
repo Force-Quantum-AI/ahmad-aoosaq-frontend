@@ -15,6 +15,7 @@ import {
     useGetAllPlansQuery,
     useGetUserCurrentSubscriptionQuery,
 } from "@/store/features/subscription/subscription.api";
+import DeleteAccountModal from "./DeleteAccountModal";
 
 // ─── Types  ──
 
