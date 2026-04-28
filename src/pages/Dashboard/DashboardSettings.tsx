@@ -5,7 +5,7 @@ import {
     Pencil,
     LogOut
 } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import {
     Dialog,
     DialogContent,
@@ -221,11 +221,10 @@ const DashboardSettings: React.FC = () => {
             >
                 {/* Left Side Content */}
                 <div className="space-y-2">
-                    <h1 className="text-4xl font-semibold text-white tracking-tight">Welcome back, Sazzy</h1>
+                    <h1 className="text-4xl font-semibold text-white tracking-tight">Welcome back</h1>
                     <button className="text-white text-xl font-medium  flex items-center gap-2">
-                        Configure <span className="text-yellow-500 underline hover:cursor-pointer hover:text-yellow-400">Luxe Home Services Assistant</span><Pencil size={18} />
+                        Configure <span className="text-yellow-500 hover:cursor-pointer">Your AI Assistant</span>
                     </button>
-
                 </div>
             </PageHeader>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -335,7 +334,9 @@ const DashboardSettings: React.FC = () => {
                 <div className="flex flex-col gap-4">
 
                     {/* Billing */}
-                    <Billing />
+                    <div className="" id="billing-section">
+                        <Billing />
+                    </div>
 
                     {/* Notifications */}
                     <DarkCard>
@@ -366,7 +367,7 @@ const DashboardSettings: React.FC = () => {
                                         </div>
                                         {/* Neutral gray tag — reads as 'not available yet', not 'warning' */}
                                         <span className="text-gray-500 text-xs font-medium bg-[#1e1e1e] border border-white/10 px-2.5 py-1 rounded-lg">Coming Soon</span>
-                                        <button className="text-xs bg-[#1e2a3a] border border-blue-600/30 text-blue-400 hover:bg-blue-600/20 px-3 py-1.5 rounded-lg transition-colors">
+                                        <button className="text-xs bg-[#1e2a3a] border border-blue-600/30 text-blue-400 hover:bg-blue-600/20 px-3 py-1.5 rounded-lg transition-colors" onClick={() => toast.success("Thank you, you will be notified when this feature is available.")}>
                                             Notify me
                                         </button>
                                     </div>
@@ -381,7 +382,7 @@ const DashboardSettings: React.FC = () => {
                         <p className="text-red-600/70 text-sm mb-5">Irreversible actions</p>
                         <div className="grid grid-cols-2 gap-3">
                             <button
-                                onClick={() => setDangerAction("Cancel Subscription")}
+                                onClick={() => document.getElementById("billing-section")?.scrollIntoView({ behavior: "smooth" })}
                                 className="border border-red-600/40 hover:bg-red-600/10 text-red-500 text-sm font-medium py-3 rounded-xl transition-colors"
                             >
                                 Cancel Subscription

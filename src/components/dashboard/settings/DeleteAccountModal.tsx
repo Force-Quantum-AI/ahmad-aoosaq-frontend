@@ -120,7 +120,7 @@ const DeleteAccountModal = ({
             <Button
               variant="outline"
               className="w-1/2"
-              onClick={() => onOpenChange(false)}
+              onClick={() => { onOpenChange(false); setOtp(Array(6).fill("")); }}
             >
               Cancel
             </Button>
