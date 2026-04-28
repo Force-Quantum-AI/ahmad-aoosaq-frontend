@@ -145,7 +145,12 @@ const Billing = () => {
     // const [isPlanPresent, setIsPlanPresent] = useState(false);
     // !!subData?.subscription?.active || subData?.subscription.status==="paused" && setIsPlanPresent(true)
 
-    const isPlanPresent = !!subData?.subscription?.active;
+    // when doing this then displaying subscription with status pending 
+    // const isPlanPresent = !subData?.subscription?.active ? (subData?.subscription.status === "active" || subData?.subscription.status === "paused") && true : false;
+    // when doing this then not displaying subscription , but where status active 
+    // const isPlanPresent = subData?.subscription?.active ? (subData?.subscription.status === "active" || subData?.subscription.status === "paused") && true : false;
+    const isPlanPresent = subData?.subscription.status === "active" || subData?.subscription.status === "paused" ? true : false;
+    console.log("is act: " ,isPlanPresent);
 
     // ── Derive active add-on feature objects 
     const activeAddOnFeatures: FeatureDetail[] = (subData?.add_ons ?? [])
@@ -169,6 +174,9 @@ const Billing = () => {
 
     const plan = subData?.plan;
     const sub = subData?.subscription;
+
+    console.log("checking ....:", isPlanPresent && plan && sub);
+    
 
     // ─── Loading   ──
     if (isLoading) {
@@ -410,6 +418,7 @@ const Billing = () => {
                     }}
                     activeAddOns={activeAddOnFeatures}
                     isTrialing={sub.is_trial}
+                    isPaused={sub.status === "paused"}
                 />
             )}
 

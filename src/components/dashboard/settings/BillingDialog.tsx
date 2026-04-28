@@ -12,7 +12,7 @@ import {
     Sparkles,
     AlertTriangle,
 } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import {
     useGetFinalPlanModalInfoQuery,
@@ -61,6 +61,7 @@ interface BillingDialogProps {
     plan?: Plan;
     activeAddOns?: FeatureDetail[];
     isTrialing?: boolean;
+    isPaused: boolean;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -129,6 +130,8 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
     plan,
     activeAddOns = [],
     isTrialing = false,
+    isPaused = false,
+    
 }) => {
 
     const [featuresExpanded, setFeaturesExpanded] = useState(false);
@@ -220,6 +223,7 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
     return (
         <>
         <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTitle></DialogTitle>
             <DialogContent className="w-full max-w-lg bg-white rounded-2xl shadow-xl border-none p-0 overflow-hidden">
 
                 {/* ── Header ── */}
@@ -229,13 +233,13 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
                         <span
                             className={cn(
                                 "flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-lg",
-                                isTrialing
+                                isTrialing || isPaused
                                     ? "bg-yellow-50 text-yellow-600 border border-yellow-200"
                                     : "bg-green-50 text-green-600 border border-green-200"
                             )}
                         >
                             <CheckCircle2 size={12} />
-                            {isTrialing ? "Trial" : "Active"}
+                            {isPaused ? "Paused" : isTrialing ? "Trial" : "Active"}
                         </span>
                     </div>
                     <p className="text-gray-400 text-xs mt-1">
