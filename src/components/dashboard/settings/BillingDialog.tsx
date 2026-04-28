@@ -19,7 +19,7 @@ import {
     useAddOnsFeaturesMutation,
     useRemoveAddOnsFeaturesMutation,
     usePauseAndResumeAndDeleteSubscriptionMutation,
-    useLazyChangeSubscriptionPlanQuery,
+    useChangeSubscriptionPlanMutation,
 } from "@/store/features/subscription/subscription.api";
 import { toast } from "react-toastify";
 import DeleteSubscriptionModal from "./DeleteSubscriptionModal";
@@ -141,7 +141,7 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
     const [addSuccess, setAddSuccess] = useState(false);
 
     const [pauseAndResumeAndDeleteSubscription,{isLoading: isPauseAndResumeAndDeleteSubscriptionLoading}] = usePauseAndResumeAndDeleteSubscriptionMutation();
-    const [triggerChangeSubscriptionPlan] = useLazyChangeSubscriptionPlanQuery();
+    const [changeSubscriptionPlan,{isLoading: isChangeSubscriptionPlanLoading}] = useChangeSubscriptionPlanMutation();
 
     // Reset state when dialog closes
     useEffect(() => {
@@ -214,6 +214,18 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
         } catch (err) {
             console.error("Pause and resume subscription error:", err);
             toast.error(`Failed to ${action} subscription`);
+        }
+    };
+
+    const handleChangeSubscriptionPlan = async () => {
+        try {
+            const res = await changeSubscriptionPlan({
+                return_url: window.location.href
+            }).unwrap();
+            window.location.href = res?.data?.url;
+        } catch (err) {
+            console.error("Change subscription plan error:", err);
+            toast.error("Failed to change subscription plan");
         }
     };
 
@@ -538,8 +550,8 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
                                 {isPauseAndResumeAndDeleteSubscriptionLoading ? "Resuming..." : "Resume Subscription"}
                             </button>
                         )}
-                        <button className="w-full bg-black text-white hover:bg-gray-900 text-sm font-medium py-2 rounded-xl transition-colors cursor-pointer" onClick={()=>{triggerChangeSubscriptionPlan({return_url: window.location.href})}}>    
-                            Change Subscription Plan
+                        <button className="w-full bg-black text-white hover:bg-gray-900 text-sm font-medium py-2 rounded-xl transition-colors cursor-pointer" onClick={handleChangeSubscriptionPlan} disabled={isChangeSubscriptionPlanLoading}>
+                            {isChangeSubscriptionPlanLoading? "Loading..." : "Change Subscription Plan"}
                         </button>
                         <button className="w-full bg-red-700 text-white hover:bg-red-600 text-sm font-medium py-2 rounded-xl transition-colors cursor-pointer" onClick={() => setIsDeleteModalOpen(true)}>
                             Cancel Subscription
