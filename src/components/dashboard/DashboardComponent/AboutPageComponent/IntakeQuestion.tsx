@@ -272,7 +272,7 @@ const IntakeQuestion = () => {
           <button
             onClick={handleAddQuestion}
             disabled={questionsLoading}
-            className="flex items-center gap-2 px-6 py-3 text-base bg-[#0D7EFD] hover:bg-blue-600 text-white rounded-xl cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-1 px-2 py-3 text-sm bg-[#0D7EFD] hover:bg-blue-600 text-white rounded-xl cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-nowrap"
           >
             <Plus size={20} />
             Add Questions
