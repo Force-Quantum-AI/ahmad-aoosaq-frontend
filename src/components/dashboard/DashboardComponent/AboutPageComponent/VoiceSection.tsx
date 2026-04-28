@@ -30,6 +30,8 @@ export default function VoiceSection() {
   // Get currently active agent
   const activeAgent = agentData.find((agent: Agent) => agent.is_active);
   const selectedVoiceId = activeAgent?.voice.id;
+  console.log(selectedVoiceId);
+  
 
   // Handle voice selection
   const handleSelectVoice = async (agent: Agent) => {

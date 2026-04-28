@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
     X,
     Bell,
-    Pencil,
     LogOut
 } from "lucide-react";
 import { toast } from "react-toastify";
