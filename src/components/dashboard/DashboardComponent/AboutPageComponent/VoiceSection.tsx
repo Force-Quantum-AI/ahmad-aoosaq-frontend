@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Check, Headphones } from "lucide-react";
+import { Check, Headphones, Play } from "lucide-react";
 import robot from "@/assets/images/robo.png";
 import AgentConfigHeader from "./AgentConfigHeader";
 import { useGetAllAgentQuery, useSelectAgentMutation } from "@/store/features/agent/agent.api";
@@ -218,7 +218,7 @@ export default function VoiceSection() {
                             <rect x="18" y="4" width="2" height="16" />
                           </svg>
                         ) : (
-                          <Headphones size={14} />
+                          <Play size={14} />
                         )}
                       </button>
                     </div>

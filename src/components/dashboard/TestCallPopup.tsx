@@ -6,6 +6,7 @@ import {
   useTestVoiceTurnMutation,
   useEndTestVoiceMutation,
 } from "@/store/features/agent/aiVoice.api";
+import { useSelector } from "react-redux";
 
 declare global {
   interface Window {
@@ -13,9 +14,6 @@ declare global {
     webkitSpeechRecognition: any;
   }
 }
-
-const SESSION_ID = "voice-test-8051fd69-be24-4315-90c5-5f1f90323a08";
-const AGENT_ID = "31";
 
 type CallState = "ready" | "connecting" | "listening" | "processing" | "agent-speaking";
 
@@ -29,13 +27,18 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
   const [muted, setMuted] = useState(false);
   const [agentStartingMessage, setAgentStartingMessage] = useState("");
 
+  const [sessionId, setSessionId] = useState("");
+  const sessionIdRef = useRef("");
+  const businessId = useSelector((state: any) => state.business.id); // here business id means agent id
+
+
   // Refs to avoid stale closures in async callbacks
   const callStateRef = useRef<CallState>("ready");
   const mutedRef = useRef(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);
   const isListeningRef = useRef(false);
-  const startListeningRef = useRef<() => void>(() => {});
+  const startListeningRef = useRef<() => void>(() => { });
   const activeRef = useRef(false);
   const lastTranscriptRef = useRef<string>("");
 
@@ -76,7 +79,7 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
 
     // Stop mic
     if (recognitionRef.current) {
-      try { recognitionRef.current.abort(); } catch {}
+      try { recognitionRef.current.abort(); } catch { }
       recognitionRef.current = null;
     }
     isListeningRef.current = false;
@@ -91,12 +94,12 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
     // Call end API — fire and forget, don't block UI
     endTestVoice({
       data: {
-        session_id: SESSION_ID,
+        session_id: sessionIdRef.current,
         text: lastTranscriptRef.current,
-        agent_id: AGENT_ID,
+        agent_id: `${businessId}`,
       },
-    }).catch(() => {});
-
+    }).catch(() => { });
+    sessionIdRef.current = "";
     updateCallState("ready");
     setSeconds(0);
     lastTranscriptRef.current = "";
@@ -113,10 +116,11 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
       updateCallState("processing");
       try {
         const res: any = await testVoiceTurn({
-          data: { session_id: SESSION_ID, text: transcript, agent_id: AGENT_ID },
+          data: { session_id: sessionIdRef.current, text: transcript, agent_id: `${businessId}` },
         });
 
         if (!activeRef.current) return;
+        sessionIdRef.current = res?.data?.session_id;
 
         const { audio_url, is_active } = res?.data ?? {};
 
@@ -214,8 +218,12 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
     lastTranscriptRef.current = "";
 
     try {
-      const res: any = await startTestVoice({ agent_id: AGENT_ID });
+      const res: any = await startTestVoice({ agent_id: `${businessId}` });
       setAgentStartingMessage(res?.data?.text ?? "");
+      const sId = res?.data?.session_id;
+      setSessionId(sId);
+      sessionIdRef.current = sId;
+
 
       if (!activeRef.current) return;
 
@@ -243,7 +251,7 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
 
     if (next) {
       if (recognitionRef.current) {
-        try { recognitionRef.current.abort(); } catch {}
+        try { recognitionRef.current.abort(); } catch { }
         recognitionRef.current = null;
       }
       isListeningRef.current = false;
@@ -266,11 +274,11 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
   const isConnected = callState !== "ready" && callState !== "connecting";
 
   const statusMap: Record<CallState, { label: string; color: string }> = {
-    ready:            { label: "Ready",            color: "text-gray-500"   },
-    connecting:       { label: "Connecting…",      color: "text-yellow-500" },
-    listening:        { label: muted ? "Muted" : "Listening…", color: muted ? "text-gray-400" : "text-blue-500" },
-    processing:       { label: "Processing…",      color: "text-yellow-500" },
-    "agent-speaking": { label: "Agent speaking",   color: "text-green-500"  },
+    ready: { label: "Ready", color: "text-gray-500" },
+    connecting: { label: "Connecting…", color: "text-yellow-500" },
+    listening: { label: muted ? "Muted" : "Listening…", color: muted ? "text-gray-400" : "text-blue-500" },
+    processing: { label: "Processing…", color: "text-yellow-500" },
+    "agent-speaking": { label: "Agent speaking", color: "text-green-500" },
   };
   const { label: statusLabel, color: statusColor } = statusMap[callState];
 
@@ -307,9 +315,8 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
         {/* Header */}
         <div className="flex flex-col items-center mb-5 space-y-3">
           <div
-            className={`w-16 h-16 flex items-center justify-center border-2 border-gray-200 transition-colors duration-500 ${
-              isConnected ? "bg-green-500/20" : "bg-gray-100"
-            }`}
+            className={`w-16 h-16 flex items-center justify-center border-2 border-gray-200 transition-colors duration-500 ${isConnected ? "bg-green-500/20" : "bg-gray-100"
+              }`}
             style={{ borderRadius: "20px", boxShadow: "0 8px 14px 0 rgba(78,78,78,0.35)" }}
           >
             <PhoneCall
@@ -375,11 +382,10 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
             <div className="flex gap-3 mb-5">
               <button
                 onClick={handleMute}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border text-sm font-semibold transition-all cursor-pointer ${
-                  muted
-                    ? "bg-gray-800 text-white border-gray-800"
-                    : "bg-white text-gray-800 border-gray-300 hover:bg-gray-50"
-                }`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border text-sm font-semibold transition-all cursor-pointer ${muted
+                  ? "bg-gray-800 text-white border-gray-800"
+                  : "bg-white text-gray-800 border-gray-300 hover:bg-gray-50"
+                  }`}
               >
                 {muted ? <MicOff size={16} /> : <Mic size={16} />}
                 {muted ? "Unmute" : "Mute"}

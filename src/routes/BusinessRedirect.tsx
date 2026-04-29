@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useGetUserQuery } from "@/store/features/auth/auth.api";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "@/store/features/auth/auth.slice";
+import { setBusinessId } from "@/store/features/business/business.slice";
 
 const BusinessRoute = () => {
   const dispatch = useDispatch()
@@ -34,8 +35,10 @@ const BusinessRoute = () => {
 
   if (Array.isArray(data) && data.length > 0) {
     hasBusinessEmail = !!data[0]?.business_email || !!data[0]?.has_business_email || !!data[0]?.id;
+    dispatch(setBusinessId(data[0]?.id));
   } else if (data && !Array.isArray(data)) {
     hasBusinessEmail = !!data.business_email || !!data.has_business_email || !!data.id;
+    dispatch(setBusinessId(data?.id));
   }
 
   //  User has NO business → block dashboard
