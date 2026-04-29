@@ -27,9 +27,11 @@ export default function TestCallPopup({ onClose }: { onClose: () => void }) {
   const [muted, setMuted] = useState(false);
   const [agentStartingMessage, setAgentStartingMessage] = useState("");
 
-  const [sessionId, setSessionId] = useState("");
+  const [sessionId, setSessionId] = useState("123");
   const sessionIdRef = useRef("");
   const businessId = useSelector((state: any) => state.business.id); // here business id means agent id
+  console.log(sessionId);
+  
 
 
   // Refs to avoid stale closures in async callbacks

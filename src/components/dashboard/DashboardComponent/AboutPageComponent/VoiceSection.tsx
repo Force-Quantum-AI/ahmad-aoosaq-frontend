@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Check, Headphones, Play } from "lucide-react";
+import { Check, Play } from "lucide-react";
 import robot from "@/assets/images/robo.png";
 import AgentConfigHeader from "./AgentConfigHeader";
 import { useGetAllAgentQuery, useSelectAgentMutation } from "@/store/features/agent/agent.api";
@@ -16,6 +16,7 @@ interface Agent {
     gender: string;
     language: string;
     description: string;
+    preview_url?: string;
   };
   is_active: boolean;
 }
@@ -52,27 +53,29 @@ export default function VoiceSection() {
   };
 
   // Handle voice preview
-  const togglePreview = (voiceId: string) => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio("/demoCallSound.mp3");
-    }
-
-    const audio = audioRef.current;
-
+  const togglePreview = (voiceId: string, previewUrl?: string) => {
     // If same voice clicked -> pause
-    if (playingId === voiceId) {
-      audio.pause();
-      audio.currentTime = 0;
+    if (playingId === voiceId && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
       setPlayingId(null);
       return;
     }
 
     // Stop any currently playing audio
-    audio.pause();
-    audio.currentTime = 0;
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
 
-    // Play again
-    audio.play();
+    // Play new audio
+    audioRef.current = new Audio(previewUrl || "/demoCallSound.mp3");
+    const audio = audioRef.current;
+
+    audio.play().catch((err) => {
+      console.error("Audio playback failed:", err);
+      setPlayingId(null);
+    });
     setPlayingId(voiceId);
 
     // Reset when audio finishes
@@ -81,9 +84,9 @@ export default function VoiceSection() {
     };
   };
 
-  const handlePreview = (e: React.MouseEvent, voiceId: string) => {
+  const handlePreview = (e: React.MouseEvent, voiceId: string, previewUrl?: string) => {
     e.stopPropagation();
-    togglePreview(voiceId);
+    togglePreview(voiceId, previewUrl);
   };
 
   return (
@@ -194,7 +197,7 @@ export default function VoiceSection() {
 
                       {/* Headphone button — proper circular dark button */}
                       <button
-                        onClick={(e) => handlePreview(e, agent.voice.id)}
+                        onClick={(e) => handlePreview(e, agent.voice.id, agent.voice.preview_url)}
                         title="Preview voice"
                         disabled={isSelecting}
                         className={`
