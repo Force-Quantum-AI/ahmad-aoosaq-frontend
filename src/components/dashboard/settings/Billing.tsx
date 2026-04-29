@@ -2,7 +2,6 @@ import { DarkButton, DarkCard } from "@/pages/Dashboard/DashboardSettings";
 import {
     CheckCircle2,
     CircleDollarSign,
-    SquareArrowOutUpRight,
     Loader2,
     AlertCircle,
     Zap,
@@ -82,6 +81,7 @@ interface Subscription {
     updated_at: string;
     business: number;
     plan: number;
+    cancel_at_period_end: boolean;
 }
 
 interface SubscriptionData {
@@ -175,7 +175,9 @@ const Billing = () => {
     const plan = subData?.plan;
     const sub = subData?.subscription;
 
-    console.log("checking ....:", isPlanPresent && plan && sub);
+    console.log(sub);
+    console.log(sub?.cancel_at_period_end);
+    
     
 
     // ─── Loading   ──
@@ -374,9 +376,9 @@ const Billing = () => {
                         </p>
                     )}
 
-                    <button className="flex items-center justify-center gap-2 text-gray-400 hover:text-white text-sm transition-colors">
+                    {/* <button className="flex items-center justify-center gap-2 text-gray-400 hover:text-white text-sm transition-colors">
                         <SquareArrowOutUpRight size={15} /> View invoices
-                    </button>
+                    </button> */}
                 </div>
             ) : (
                 /* ── No Plan State ── */
@@ -419,6 +421,7 @@ const Billing = () => {
                     activeAddOns={activeAddOnFeatures}
                     isTrialing={sub.is_trial}
                     isPaused={sub.status === "paused"}
+                    cancel_at_period_end={sub.cancel_at_period_end}
                 />
             )}
 
