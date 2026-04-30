@@ -62,7 +62,7 @@ interface BillingDialogProps {
     activeAddOns?: FeatureDetail[];
     isTrialing?: boolean;
     isPaused: boolean;
-    cancel_at_period_end: boolean;
+    add_ons: any[];
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -89,13 +89,14 @@ interface ConfirmRemoveProps {
     onConfirm: () => void;
     onCancel: () => void;
     loading: boolean;
-    cancel_at_period_end: boolean;
+    add_ons: any[];
 }
 
-const ConfirmRemove = ({ feature, cancel_at_period_end, onConfirm, onCancel, loading }: ConfirmRemoveProps) => {
-    console.log("cancel_at_period_end",cancel_at_period_end);
+const ConfirmRemove = ({ feature, add_ons, onConfirm, onCancel, loading }: ConfirmRemoveProps) => {
+    console.log("add_ons",add_ons);
+    const isCancelAtPeriodEnd = add_ons.find((addOn: any) => addOn.feature === feature.id)?.cancel_at_period_end;
 
-    if (cancel_at_period_end) {
+    if (isCancelAtPeriodEnd) {
         return (
             <div className="rounded-xl border border-red-100 bg-red-50 p-3.5 flex flex-col gap-2.5 animate-in fade-in slide-in-from-top-1 duration-150">
                 <div className="flex items-start gap-2">
@@ -160,7 +161,7 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
     activeAddOns = [],
     isTrialing = false,
     isPaused = false,
-    cancel_at_period_end
+    add_ons = []
 }) => {
 
     const [featuresExpanded, setFeaturesExpanded] = useState(false);
@@ -389,7 +390,7 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
                                                                 onConfirm={() => handleRemoveFeature(f.id)}
                                                                 onCancel={() => setConfirmRemoveId(null)}
                                                                 loading={isRemoving}
-                                                                cancel_at_period_end={cancel_at_period_end}
+                                                                add_ons={add_ons}
                                                             />
                                                         ) : (
                                                             <div className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50 px-3 py-2.5 gap-3">

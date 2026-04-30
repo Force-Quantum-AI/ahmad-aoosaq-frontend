@@ -421,7 +421,7 @@ const Billing = () => {
                     activeAddOns={activeAddOnFeatures}
                     isTrialing={sub.is_trial}
                     isPaused={sub.status === "paused"}
-                    cancel_at_period_end={sub.cancel_at_period_end}
+                    add_ons={subData?.add_ons}
                 />
             )}
 
