@@ -213,10 +213,12 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
             }).unwrap();
             setSelectedToAdd([]);
             setAddSuccess(true);
+            toast.success("Added successfully");
             setTimeout(() => setAddSuccess(false), 3000);
             setOpen(false);
         } catch (err) {
             console.error("Add-ons error:", err);
+            toast.error("Failed to add add-ons");
         }
     };
 
@@ -228,8 +230,10 @@ const BillingDialog: React.FC<BillingDialogProps> = ({
                 add_on_ids: [featureId],
             }).unwrap();
             setConfirmRemoveId(null);
+            toast.success("Removed successfully");
         } catch (err) {
             console.error("Remove add-on error:", err);
+            toast.error("Failed to remove add-on");
         }
     };
 
