@@ -149,8 +149,9 @@ const Billing = () => {
     // const isPlanPresent = !subData?.subscription?.active ? (subData?.subscription.status === "active" || subData?.subscription.status === "paused") && true : false;
     // when doing this then not displaying subscription , but where status active 
     // const isPlanPresent = subData?.subscription?.active ? (subData?.subscription.status === "active" || subData?.subscription.status === "paused") && true : false;
+
     const isPlanPresent = subData?.subscription.status === "active" || subData?.subscription.status === "paused" ? true : false;
-    console.log("is act: " ,isPlanPresent);
+    console.log("is sdfsact: " ,isPlanPresent);
 
     // ── Derive active add-on feature objects 
     const activeAddOnFeatures: FeatureDetail[] = (subData?.add_ons ?? [])
