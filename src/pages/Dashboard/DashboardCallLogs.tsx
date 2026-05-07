@@ -1,6 +1,6 @@
-import { LogDetail } from "@/components/dashboard/logs/LogDetail";
-import { LogFilters } from "@/components/dashboard/logs/LogFilters";
-import { LogTable } from "@/components/dashboard/logs/LogTable";
+import { LogDetail } from "@/components/dashboard/AdminPanelLogs/LogDetail";
+import { LogFilters } from "@/components/dashboard/AdminPanelLogs/LogFilters";
+import { LogTable } from "@/components/dashboard/AdminPanelLogs/LogTable";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useGetLogsQuery } from "@/store/features/settings/settings.api";
 import { Terminal } from "lucide-react";
